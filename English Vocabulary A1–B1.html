@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English Vocabulary A1–B1</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mu:#6b7385;--ac:#3b6ef5;--ok:#1e9e5a;--bad:#d64545;--bd:#e1e4ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141824;--card:#1e2433;--tx:#eef0f6;--mu:#9aa3b8;--ac:#6c92ff;--ok:#41c785;--bad:#ff7070;--bd:#2f364a}}
+:root[data-theme="dark"]{--bg:#141824;--card:#1e2433;--tx:#eef0f6;--mu:#9aa3b8;--ac:#6c92ff;--ok:#41c785;--bad:#ff7070;--bd:#2f364a}
+html,body{margin:0}body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;display:flex;justify-content:center;padding:16px}
+main{width:100%;max-width:520px}
+h1{font-size:20px;margin:4px 0 12px}
+.tabs{display:flex;gap:8px}
+.tab{flex:1;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:12px;padding:10px 6px;cursor:pointer;font-size:15px}
+.tab.on{border-color:var(--ac);outline:2px solid var(--ac)}
+.tab small{display:block;color:var(--mu);font-size:12px}
+.bar{height:10px;background:var(--bd);border-radius:6px;margin:12px 0 4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.pt{font-size:13px;color:var(--mu);margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:22px 18px;text-align:center}
+.ar{font-size:40px;font-weight:700;direction:rtl;font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;margin:4px 0 16px}
+.sn{font-size:20px;line-height:2;margin-bottom:6px}
+input{font-size:20px;width:7.5em;text-align:center;border:0;border-bottom:3px solid var(--ac);background:transparent;color:var(--tx);outline:none;padding:2px}
+input.ok{border-color:var(--ok);color:var(--ok)}input.no{border-color:var(--bad)}
+.row{display:flex;gap:8px;margin-top:16px}
+button.b{flex:1;border:0;border-radius:12px;padding:13px 6px;font-size:16px;color:#fff;cursor:pointer}
+.e{background:#1e9e5a}.h{background:#d6873a}.k{background:#3b6ef5}
+.sol{width:100%;margin-top:10px;background:transparent;border:1px dashed var(--mu);color:var(--tx);border-radius:12px;padding:12px;font-size:15px;cursor:pointer}
+.ans{min-height:26px;margin-top:10px;font-weight:700;color:var(--ok);font-size:18px}
+.sp{background:none;border:0;font-size:22px;cursor:pointer}
+.note{color:var(--mu);font-size:13px;margin-top:8px}
+</style></head><body><main>
+<h1>📚 English Vocabulary</h1>
+<div class="tabs" id="tabs"></div>
+<div class="bar"><i id="fill"></i></div><div class="pt" id="pt"></div>
+<div class="card" id="card"></div>
+<div class="note" id="note"></div>
+</main>
+<script>
+// word|arabic|sentence ({word} = the gap). Add more lines to grow each level.
+const D={A1:`hospital|مستشفى|My mother works at the {hospital}.
+water|ماء|I drink {water} every day.
+house|بيت|We live in a small {house}.
+school|مدرسة|The children go to {school} by bus.
+friend|صديق|He is my best {friend}.
+food|طعام|This {food} is very good.
+book|كتاب|She reads a {book} at night.
+family|عائلة|I have a big {family}.
+morning|صباح|I wake up early in the {morning}.
+night|ليل|The stars are bright at {night}.
+car|سيارة|My father has a new {car}.
+doctor|طبيب|The {doctor} helps sick people.
+money|مال|I need {money} to buy bread.
+happy|سعيد|She is {happy} today.
+big|كبير|That is a {big} dog.
+eat|يأكل|They {eat} lunch at noon.
+drink|يشرب|I like to {drink} tea.
+work|يعمل|My brother will {work} in a bank.
+sleep|ينام|Babies {sleep} a lot.
+market|سوق|We buy fruit at the {market}.
+tea|شاي|I drink {tea} with sugar.
+bread|خبز|We eat {bread} for breakfast.
+milk|حليب|The baby wants {milk}.
+room|غرفة|My {room} is very clean.
+door|باب|Please close the {door}.
+table|طاولة|The books are on the {table}.
+mother|أم|My {mother} cooks very well.
+father|أب|My {father} drives a bus.
+brother|أخ|I have one {brother}.
+sister|أخت|My {sister} is a teacher.
+city|مدينة|Baghdad is a big {city}.
+street|شارع|The {street} is full of cars.
+apple|تفاحة|She eats an {apple} every day.
+cold|بارد|The water is very {cold}.
+hot|حار|The soup is too {hot}.
+small|صغير|He lives in a {small} village.
+good|جيد|This is a {good} book.
+read|يقرأ|I like to {read} stories.
+write|يكتب|Please {write} your name here.
+play|يلعب|The boys {play} football.`,
+A2:`weather|الطقس|The {weather} is hot in summer.
+travel|يسافر|I want to {travel} to Turkey.
+kitchen|مطبخ|Mom is cooking in the {kitchen}.
+borrow|يستعير|Can I {borrow} your pen?
+airport|مطار|We arrived at the {airport} early.
+visit|يزور|I {visit} my uncle every Friday.
+price|سعر|What is the {price} of this shirt?
+ticket|تذكرة|He bought a train {ticket}.
+cheap|رخيص|This phone is very {cheap}.
+expensive|غالٍ|That watch is too {expensive}.
+busy|مشغول|I am {busy} right now.
+tired|متعب|She feels {tired} after work.
+forget|ينسى|Please do not {forget} your keys.
+remember|يتذكر|I {remember} his name.
+choose|يختار|You can {choose} any color.
+invite|يدعو|I will {invite} all my friends.
+hungry|جائع|The boy is very {hungry}.
+journey|رحلة|The {journey} took five hours.
+neighbor|جار|Our {neighbor} is very kind.
+medicine|دواء|Take this {medicine} twice a day.
+breakfast|إفطار|I have eggs for {breakfast}.
+dinner|عشاء|We eat {dinner} at eight.
+holiday|عطلة|We went on {holiday} in July.
+hotel|فندق|The {hotel} is near the sea.
+map|خريطة|Look at the {map} to find the road.
+bridge|جسر|The {bridge} is very old.
+believe|يصدق|I do not {believe} this story.
+decide|يقرر|You must {decide} today.
+enjoy|يستمتع|I {enjoy} walking in the park.
+explain|يشرح|Can you {explain} this word?
+healthy|صحي|Fruit is {healthy} food.
+dangerous|خطير|The road is {dangerous} at night.
+popular|مشهور|He is a {popular} singer.
+quiet|هادئ|The library is very {quiet}.
+bored|يشعر بالملل|I am {bored} at home.
+weekend|عطلة نهاية الأسبوع|What do you do at the {weekend}?
+message|رسالة|I got a {message} from my friend.
+village|قرية|My grandfather lives in a {village}.
+library|مكتبة|She studies in the {library}.
+surprise|مفاجأة|The gift was a big {surprise}.`,
+B1:`achieve|يحقق|You can {achieve} your goals with hard work.
+experience|خبرة|She has ten years of {experience}.
+environment|بيئة|We must protect the {environment}.
+opinion|رأي|In my {opinion}, this plan is good.
+improve|يحسّن|I want to {improve} my English.
+solve|يحل|Can you {solve} this problem?
+advice|نصيحة|He gave me good {advice}.
+decision|قرار|It was a difficult {decision}.
+society|مجتمع|Education is important for {society}.
+opportunity|فرصة|This job is a great {opportunity}.
+require|يتطلب|This course will {require} a lot of time.
+encourage|يشجع|Teachers {encourage} students to read.
+relationship|علاقة|They have a close {relationship}.
+compare|يقارن|Let’s {compare} the two prices.
+successful|ناجح|She became a {successful} doctor.
+depend|يعتمد|It will {depend} on the weather.
+receive|يستلم|I {receive} many emails every day.
+community|مجتمع محلي|The {community} built a new park.
+argument|جدال|They had an {argument} about money.
+develop|يطور|The company will {develop} a new app.
+knowledge|معرفة|{knowledge} is power.
+ability|قدرة|She has the {ability} to learn fast.
+behavior|سلوك|His {behavior} was very polite.
+benefit|فائدة|Exercise has many health {benefit}s.
+challenge|تحدٍّ|Learning a language is a {challenge}.
+communicate|يتواصل|We {communicate} by phone.
+condition|حالة|The car is in good {condition}.
+confident|واثق|He felt {confident} before the exam.
+consider|يعتبر|Please {consider} my offer.
+contain|يحتوي|This box will {contain} old books.
+culture|ثقافة|I love learning about other {culture}s.
+damage|ضرر|The storm caused a lot of {damage}.
+describe|يصف|Can you {describe} the man?
+discuss|يناقش|We will {discuss} the plan tomorrow.
+effort|جهد|Success needs a lot of {effort}.
+express|يعبّر|It is hard to {express} my feelings.
+influence|تأثير|Parents have a big {influence} on children.
+protect|يحمي|Helmets {protect} your head.
+reduce|يقلل|We should {reduce} the waste.
+responsible|مسؤول|She is {responsible} for the team.`};
+const W=[];for(const L in D)D[L].split("\n").forEach(l=>{const[w,a,s]=l.split("|");W.push({L,w,a,s})});
+const IV=[0,1,3,7,14]; // days per box (spaced repetition)
+let S={},lvl="A1",cur=null;
+try{S=JSON.parse(localStorage.getItem("vocab1")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("vocab1",JSON.stringify(S))}catch(e){}};
+const st=w=>S[w]||(S[w]={b:0,d:0,m:0});
+const $=id=>document.getElementById(id);
+function tabs(){$("tabs").innerHTML=Object.keys(D).map(L=>{const t=W.filter(x=>x.L==L),m=t.filter(x=>st(x.w).m).length;return`<button class="tab ${L==lvl?"on":""}" onclick="lvl='${L}';next()">${L}<small>${m}/${t.length}</small></button>`}).join("")}
+function prog(){const t=W.filter(x=>x.L==lvl),m=t.filter(x=>S[x.w]&&S[x.w].m).length;$("fill").style.width=(m/t.length*100)+"%";$("pt").textContent=`Level ${lvl}: ${m} of ${t.length} words known`}
+function next(){tabs();prog();const p=W.filter(x=>x.L==lvl&&!st(x.w).m).sort((a,b)=>S[a.w].d-S[b.w].d);
+ if(!p.length){$("card").innerHTML='<div class="sn">🎉 You know all the words in this level!</div>';$("note").textContent="";return}
+ cur=p[0];const due=S[cur.w].d>Date.now();
+ $("note").textContent=due?"Nothing is due now — this is extra practice.":"";
+ const[a,b]=cur.s.split("{"+cur.w+"}");
+ $("card").innerHTML=`<div class="ar">${cur.a}</div><button class="sp" onclick="say()" aria-label="Pronounce">🔊</button>
+ <div class="sn">${a}<input id="in" autocomplete="off" autocapitalize="off" spellcheck="false" oninput="chk()" onkeydown="if(event.key=='Enter')chk()">${b}</div>
+ <div class="ans" id="ans"></div>
+ <div class="row"><button class="b e" onclick="rate('e')">Easy</button><button class="b h" onclick="rate('h')">Hard</button><button class="b k" onclick="rate('k')">I know it ✓</button></div>
+ <button class="sol" onclick="show()">Show solution</button>`;$("in").focus()}
+function chk(){const i=$("in");i.className=i.value.trim().toLowerCase()==cur.w?"ok":"";if(i.className){$("ans").textContent="✔ Correct!";say()}}
+function show(){$("ans").textContent=cur.w;$("in").value=cur.w;$("in").className="ok"}
+function say(){try{const u=new SpeechSynthesisUtterance(cur.w);u.lang="en-US";speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function rate(r){const s=st(cur.w),D1=864e5;
+ if(r=="k"){s.m=1}else if(r=="e"){s.b=Math.min(s.b+1,4);s.d=Date.now()+IV[s.b]*D1+(s.b==0?9e4:0)}else{s.b=0;s.d=Date.now()+6e4}
+ save();next()}
+next();
+</script></body></html>
